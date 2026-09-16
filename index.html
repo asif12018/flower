@@ -244,6 +244,39 @@
       box-shadow: 0 0 15px rgba(180, 100, 255, 0.6), inset 0 0 10px rgba(180, 100, 255, 0.5);
     }
 
+    /* Realistic Tulip Petals */
+    .tulip-petal {
+      position: absolute;
+      border-radius: 50% 50% 45% 45% / 70% 70% 30% 30%;
+      transform-origin: bottom center;
+    }
+    .tulip-petal.red {
+      background: linear-gradient(to top, #4d0000 0%, #b3001b 30%, #ff1a40 80%, #ff4d6d 100%);
+      box-shadow: inset -2px -5px 15px rgba(0, 0, 0, 0.5), inset 2px 5px 15px rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 100, 100, 0.3);
+    }
+    .tulip-petal.orange {
+      background: linear-gradient(to top, #662200 0%, #cc4400 30%, #ff7700 80%, #ffaa33 100%);
+      box-shadow: inset -2px -5px 15px rgba(0, 0, 0, 0.5), inset 2px 5px 15px rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 150, 100, 0.3);
+    }
+    /* 5 overlapping petals for 3D realism */
+    .tp-b1 { transform: rotate(-25deg) translateY(-5px) translateX(-8px); width: 22px; height: 50px; z-index: 1; filter: brightness(0.6); }
+    .tp-b2 { transform: rotate(25deg) translateY(-5px) translateX(8px); width: 22px; height: 50px; z-index: 1; filter: brightness(0.6); }
+    .tp-f1 { transform: rotate(-12deg) translateY(0px) translateX(-6px); width: 26px; height: 58px; z-index: 3; filter: brightness(0.85); }
+    .tp-f2 { transform: rotate(12deg) translateY(0px) translateX(6px); width: 26px; height: 58px; z-index: 3; filter: brightness(0.85); }
+    .tp-c  { transform: rotate(0deg) translateY(3px); width: 28px; height: 63px; z-index: 4; }
+    
+    /* Base wrapper to hide the hard bottom edge of petals */
+    .tulip-base {
+      position: absolute;
+      bottom: -6px;
+      width: 14px; height: 12px;
+      background: linear-gradient(to right, #022b26, #1b8575, #022b26);
+      border-radius: 40% 40% 50% 50%;
+      z-index: 5;
+    }
+
     .p1 { transform: rotate(-45deg) translateY(-5px); }
     .p2 { transform: rotate(0deg) translateY(-10px); z-index: 2; }
     .p3 { transform: rotate(45deg) translateY(-5px); }
@@ -309,11 +342,10 @@
     @keyframes growStemMR { from { height: 0; } to { height: 250px; } }
     @keyframes popFlowerMR { from { transform: scale(0) rotate(10deg); } to { transform: scale(1) rotate(10deg); } }
 
-    /* 4. Left Flower (Pink, 3.5s) */
+    /* 4. Left Flower (Tulip Red, 3.5s) */
     .left-flower { left: 28%; z-index: 4; }
-    .left-flower .stem { transform: rotate(-12deg); transform-origin: bottom; }
-    .left-flower .petal { width: 20px; height: 45px; }
-    .left-flower .leaf-left { bottom: 70px; left: -28px; }
+    .left-flower .stem { transform: rotate(-12deg); transform-origin: bottom; background: linear-gradient(to top, #022b26, #1b8575); width: 5px; }
+    .left-flower .leaf-left { bottom: 30px; left: -25px; width: 25px; height: 110px; border-radius: 100% 0 100% 0; background: linear-gradient(to right, #1b8575, #022b26); transform: rotate(-15deg); }
     .left-flower .flower-head { bottom: 185px; left: -35px; }
 
     body.play .left-flower .stem { animation: growStemL 1.5s ease-out forwards 3.5s; height: 190px; }
@@ -323,11 +355,10 @@
     @keyframes growStemL { from { height: 0; } to { height: 190px; } }
     @keyframes popFlowerL { from { transform: scale(0) rotate(-18deg); } to { transform: scale(1) rotate(-18deg); } }
 
-    /* 5. Right Flower (Purple, 3.6s) */
+    /* 5. Right Flower (Tulip Orange, 3.6s) */
     .right-flower { left: 72%; z-index: 4; }
-    .right-flower .stem { transform: rotate(12deg); transform-origin: bottom; }
-    .right-flower .petal { width: 20px; height: 45px; }
-    .right-flower .leaf-right { bottom: 80px; left: 2px; }
+    .right-flower .stem { transform: rotate(12deg); transform-origin: bottom; background: linear-gradient(to top, #022b26, #1b8575); width: 5px; }
+    .right-flower .leaf-right { bottom: 40px; left: 5px; width: 25px; height: 110px; border-radius: 0 100% 0 100%; background: linear-gradient(to left, #1b8575, #022b26); transform: rotate(15deg); }
     .right-flower .flower-head { bottom: 195px; left: 35px; }
 
     body.play .right-flower .stem { animation: growStemR 1.5s ease-out forwards 3.6s; height: 200px; }
@@ -658,21 +689,35 @@
 
     /* --- Mobile Responsive --- */
     @media (max-width: 768px) {
-      .message-container { padding: 30px 15px; width: 92%; top: 8%; }
-      .msg-subtitle { font-size: 28px; }
-      .msg-line { font-size: 16px; white-space: normal; width: 100%; opacity: 0; border: none; margin-bottom: 8px; }
+      .message-container { padding: 30px 15px; width: 95%; top: 5%; }
+      .msg-subtitle { font-size: 24px; margin-bottom: 15px; }
+      .msg-line { font-size: 14px; white-space: normal; width: 100%; opacity: 0; border: none; margin-bottom: 8px; }
       
       /* Replace typewriter with fade-in on mobile */
       body.play .line-1 { animation: fadeIn 2s ease forwards 11s; }
       body.play .line-2 { animation: fadeIn 2s ease forwards 13s; }
 
-      .garden { width: 100vw; height: 400px; }
+      .garden { width: 100vw; height: 350px; bottom: 2%; }
       .grass { display: none; }
-      .moon { width: 80px; height: 80px; right: 10%; }
-      .center-flower { transform: scale(0.8); transform-origin: bottom; }
-      .mid-left, .mid-right { transform: scale(0.7); transform-origin: bottom; }
-      .left-flower, .right-flower { transform: scale(0.6); transform-origin: bottom; }
+      .moon { width: 60px; height: 60px; right: 5%; top: 8%; }
+      
+      .center-flower { transform: scale(0.65); transform-origin: bottom; left: 50%; }
+      .mid-left { transform: scale(0.6); transform-origin: bottom; left: 25%; }
+      .mid-right { transform: scale(0.6); transform-origin: bottom; left: 75%; }
+      .left-flower { transform: scale(0.55); transform-origin: bottom; left: 10%; }
+      .right-flower { transform: scale(0.55); transform-origin: bottom; left: 90%; }
       .far-left, .far-right { display: none; }
+      .falling-petals { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .msg-subtitle { font-size: 20px; letter-spacing: 5px; }
+      .center-flower { transform: scale(0.55); }
+      .mid-left { transform: scale(0.5); left: 22%; }
+      .mid-right { transform: scale(0.5); left: 78%; }
+      .left-flower { transform: scale(0.45); left: 5%; }
+      .right-flower { transform: scale(0.45); left: 95%; }
+      .garden { height: 300px; }
     }
   </style>
 </head>
@@ -772,13 +817,17 @@
         </div>
       </div>
 
-      <!-- 4. Left -->
+      <!-- 4. Left (Realistic Tulip) -->
       <div class="flower-group left-flower">
         <div class="stem"></div>
         <div class="leaf leaf-left"></div>
         <div class="flower-head">
-          <div class="petal pink p1"></div><div class="petal pink p2"></div><div class="petal pink p3"></div>
-          <div class="center"></div>
+          <div class="tulip-petal red tp-b1"></div>
+          <div class="tulip-petal red tp-b2"></div>
+          <div class="tulip-petal red tp-f1"></div>
+          <div class="tulip-petal red tp-f2"></div>
+          <div class="tulip-petal red tp-c"></div>
+          <div class="tulip-base"></div>
         </div>
       </div>
 
@@ -802,13 +851,17 @@
         </div>
       </div>
 
-      <!-- 5. Right -->
+      <!-- 5. Right (Realistic Tulip) -->
       <div class="flower-group right-flower">
         <div class="stem"></div>
         <div class="leaf leaf-right"></div>
         <div class="flower-head">
-          <div class="petal purple p1"></div><div class="petal purple p2"></div><div class="petal purple p3"></div>
-          <div class="center"></div>
+          <div class="tulip-petal orange tp-b1"></div>
+          <div class="tulip-petal orange tp-b2"></div>
+          <div class="tulip-petal orange tp-f1"></div>
+          <div class="tulip-petal orange tp-f2"></div>
+          <div class="tulip-petal orange tp-c"></div>
+          <div class="tulip-base"></div>
         </div>
       </div>
 
